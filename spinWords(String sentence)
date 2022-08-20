@@ -1,0 +1,12 @@
+    public static String spinWords(String sentence) {
+        String[] array = sentence.split(" ");
+        StringBuilder builder = new StringBuilder();
+        for (String word : array) {
+            if (word.length() > 4) {
+                builder.append(new StringBuilder(word).reverse()).append(" ");
+            } else {
+                builder.append(word).append(" ");
+            }
+        }
+            return builder.toString().trim();
+    }
