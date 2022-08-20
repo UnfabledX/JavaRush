@@ -1,0 +1,4 @@
+    public static boolean isIsogram(String str) {
+        long count1 = str.toLowerCase(Locale.ROOT).chars().distinct().count();
+        return count1 == str.length();
+    }
