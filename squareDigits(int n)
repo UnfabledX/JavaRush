@@ -1,0 +1,11 @@
+    public static int squareDigits(int n) {
+        if (n == 0) return 0;
+        int k = 0;
+        StringBuilder builder = new StringBuilder();
+        while (n > 0) {
+            k = n % 10;
+            builder.insert(0, (int) Math.pow(k, 2));
+            n /= 10;
+        }
+        return Integer.parseInt(builder.toString());
+    }
