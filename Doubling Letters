@@ -1,0 +1,5 @@
+public static String doubleChar(String s){
+   return s.chars()
+           .mapToObj(i -> String.valueOf((char) i).repeat(2))
+           .collect(Collectors.joining());
+}
