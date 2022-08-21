@@ -1,0 +1,9 @@
+public static boolean validParentheses(String parens) {
+        int count40 = 0, count41 = 0;
+        for (int number: parens.toCharArray()) {
+            if (count40 < count41) return false;
+            if ( number == '(') count40++;
+            if ( number == ')') count41++;
+        }
+        return count40 == count41;
+    }
