@@ -1,0 +1,33 @@
+    public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> asList = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        List<Integer> resultList = new ArrayList<>();
+        asList.add(x);
+        asList.sort(Integer::compareTo);
+        int index = 0;
+        for (int i = 0; i < asList.size(); i++) {
+            if (asList.get(i) == x) {
+                index = i;
+                break;
+            }
+        }
+        while (k > 0) {
+            if (index == 0) {
+                resultList.addAll(asList.subList(1, k + 1));
+                break;
+            }
+            if (index == asList.size() - 1) {
+                resultList.addAll(asList.subList(index - k, index));
+                break;
+            }
+            if (asList.get(index + 1) - x >= x - asList.get(index - 1)) {
+                resultList.add(asList.get(index - 1));
+                asList.remove(--index);
+            } else {
+                resultList.add(asList.get(index + 1));
+                asList.remove(index + 1);
+            }
+            k--;
+        }
+        resultList.sort(Comparator.naturalOrder());
+        return resultList;
+    }
