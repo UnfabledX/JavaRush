@@ -1,0 +1,44 @@
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.joining;
+
+
+/**
+ * Вам потрібно розробити алгоритм програми, яка повинна виконувати наступне:
+ * - програма приймає на вхід довільний текст і знаходить в кожному слові цього тексту найперший символ,
+ * який більше НЕ повторюється в аналізуємому слові
+ * - далі із отриманого набору символів програма повинна вибрати перший унікальний
+ * (тобто той, який більше не зустручається в наборі) і повернути його.
+ * 
+ */
+public class UniqueCharacter {
+    public static void main(String[] args) {
+        System.out.println(calculateUniqueCh(
+                "C makes it easy for you to shoot yourself in the foot. " +
+                        "C++ makes that harder, but when you do, it blows away your whole leg. " +
+                        "(с) Bjarne Stroustrup"));
+    }
+
+    public static Character calculateUniqueCh(String str) {
+        String characters =  Arrays.stream(str.split("\\W+"))
+                .map(UniqueCharacter::findFirstUniqueCharacterInTheWord)
+                .map(String::valueOf)
+                .collect(joining());
+        return findFirstUniqueCharacterInTheWord(characters);
+    }
+
+    private static Character findFirstUniqueCharacterInTheWord(String word) {
+        Map<Character, Long> map = word.chars()
+                .mapToObj(ch -> (char) ch)
+                .collect(groupingBy(Function.identity(), LinkedHashMap::new, counting()));
+        return map.entrySet().stream()
+                .filter(entry -> entry.getValue() == 1L)
+                .map(Map.Entry::getKey)
+                .findFirst().orElse(null);
+    }
+}
